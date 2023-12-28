@@ -1,1 +1,1 @@
-# NotificationManagement
+# Ginzo
