@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Features\Class\Commands\Delete\" />
+      <Folder Include="Features\Class\Commands\Update\" />
+      <Folder Include="Features\Class\Handlers\" />
+      <Folder Include="Features\Class\Queries\" />
+      <Folder Include="Features\Course\Commands\Delete\" />
+      <Folder Include="Features\Course\Commands\Update\" />
+      <Folder Include="Features\Course\Queries\" />
+      <Folder Include="Features\Discipline\Commands\Delete\" />
+      <Folder Include="Features\Discipline\Commands\Update\" />
+      <Folder Include="Features\Discipline\Queries\" />
+      <Folder Include="Features\Schedule\Commands\Delete\" />
+      <Folder Include="Features\Schedule\Commands\Update\" />
+      <Folder Include="Features\Schedule\Queries\" />
+      <Folder Include="Features\SchoolYear\Commands\Delete\" />
+      <Folder Include="Features\SchoolYear\Commands\Update\" />
+      <Folder Include="Features\SchoolYear\Queries\" />
+      <Folder Include="Features\User\Commands\Delete\" />
+      <Folder Include="Features\User\Commands\Update\" />
+      <Folder Include="Features\User\Queries\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="12.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Domain\Domain.csproj" />
+    </ItemGroup>
+
+</Project>
