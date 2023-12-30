@@ -10,5 +10,8 @@ public class EntityBase
     public EntityBase()
     {
         Id = Guid.NewGuid().ToString();
+        IsActive = true;
+        CreatedAt = DateTime.Now;
+        UpdatedAt = DateTime.Now;
     }
 }

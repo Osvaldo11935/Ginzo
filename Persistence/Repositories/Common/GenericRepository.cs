@@ -31,6 +31,12 @@ public class GenericRepository<T>: IGenericRepository<T>
     /// 
     /// </summary>
     /// <param name="request"></param>
+    public async Task InsertAsync(List<T> request)
+        => await _dbSet.AddRangeAsync(request);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
     public void Update(T request)
         =>  _dbSet.Update(request);
     

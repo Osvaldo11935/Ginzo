@@ -1,9 +1,11 @@
+using Application.Common.Exceptions;
 using Application.Common.Interfaces.IRepositories;
 using Application.Common.Interfaces.IUnitOfWorks;
 using Application.Features.Common;
 using Application.Features.User.Commands.Create;
 using Domain.Common.Aggregates;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 
 namespace Application.Features.User.Handlers;
 
@@ -27,7 +29,9 @@ public class CreateUserHandler : HandlerBase, IRequestHandler<CreateUserCommand,
         Domain.Entities.User user = userAggregate.AddUser(request.Email, request.Name, request.BirthDate,
             request.DocumentNumber, request.PhoneNumber, request.UserName);
 
-        await _userRepository.SignUpAsync(user, request.Password!);
+        IdentityResult userResponse =  await _userRepository.SignUpAsync(user, request.Password!);
+
+        if (!userResponse.Succeeded) throw new ApiException(userResponse.Errors.FirstOrDefault()!.Description);
 
         await _userRepository.AddRoleToUserAsync(user, request.RoleName!);
 

@@ -28,7 +28,7 @@ public class CreateDisciplineHandler: HandlerBase, IRequestHandler<CreateDiscipl
         Domain.Entities.Discipline discipline = courseAggregate.AddDiscipline(request.Name);
         
         await _disciplineRepository.InsertAsync(discipline);
-
+        await UnitOfWork.SaveChangeAsync(cancellationToken);
         return discipline.Id!;
     }
 }

@@ -12,6 +12,12 @@ public interface IGenericRepository<T>
      /// </summary>
      /// <param name="request"></param>
      Task InsertAsync(T request);
+     
+     /// <summary>
+     /// 
+     /// </summary>
+     /// <param name="request"></param>
+     Task InsertAsync(List<T> request);
 
     /// <summary>
     /// 

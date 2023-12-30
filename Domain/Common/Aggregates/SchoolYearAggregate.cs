@@ -21,14 +21,52 @@ public class SchoolYearAggregate
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="level"></param>
+    /// <returns></returns>
+    public AcademicLevel AddAcademicLevel(int level)
+        => new AcademicLevel {
+            Level = level
+        };
+
+    /// <summary>
+    /// 
+    /// </summary>
     /// <param name="name"></param>
     /// <param name="schoolYearId"></param>
+    /// <param name="academicLevelId"></param>
+    /// <param name="courseId"></param>
     /// <returns></returns>
-    public Class AddClass(string? name, string schoolYearId)
+    public Class AddClass(string? name, string schoolYearId, string? academicLevelId, string? courseId)
         => new Class {
            Name = name,
-           SchoolYearId = schoolYearId
+           CourseId = courseId,
+           SchoolYearId = schoolYearId,
+           AcademicLevelId = academicLevelId
         };
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="classId"></param>
+    /// <param name="scheduleIds"></param>
+    /// <returns></returns>
+    public List<ScheduleClass> AddClassSchedule(string? classId, List<string> scheduleIds)
+        => scheduleIds.Select(e => new ScheduleClass {
+            ClassId = classId,
+            ScheduleId = e
+        }).ToList();
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="classId"></param>
+    /// <param name="studentIds"></param>
+    /// <returns></returns>
+    public List<Student> AddStudentClass(string? classId, List<string> studentIds)
+        => studentIds.Select(e => new Student {
+            ClassId = classId,
+            UserId = e
+        }).ToList();
     
     /// <summary>
     /// 

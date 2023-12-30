@@ -27,7 +27,7 @@ public class CreateSchoolYearHandler: HandlerBase, IRequestHandler<CreateSchoolY
         Domain.Entities.SchoolYear schoolYear = schoolYearAggregate.AddSchoolYear(request.StartYear, request.EndYear);
         
         await _schoolRepository.InsertAsync(schoolYear);
-
+        await UnitOfWork.SaveChangeAsync(cancellationToken);
         return schoolYear.Id!;
     }
 }

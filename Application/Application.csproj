@@ -7,29 +7,31 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Folder Include="Features\AcademicLevel\Commands\Delete\" />
+      <Folder Include="Features\AcademicLevel\Commands\Update\" />
+      <Folder Include="Features\Address\Commands\Delete\" />
+      <Folder Include="Features\Address\Commands\Update\" />
       <Folder Include="Features\Class\Commands\Delete\" />
       <Folder Include="Features\Class\Commands\Update\" />
-      <Folder Include="Features\Class\Handlers\" />
-      <Folder Include="Features\Class\Queries\" />
       <Folder Include="Features\Course\Commands\Delete\" />
       <Folder Include="Features\Course\Commands\Update\" />
-      <Folder Include="Features\Course\Queries\" />
       <Folder Include="Features\Discipline\Commands\Delete\" />
       <Folder Include="Features\Discipline\Commands\Update\" />
-      <Folder Include="Features\Discipline\Queries\" />
+      <Folder Include="Features\Enrollment\Commands\Delete\" />
+      <Folder Include="Features\Enrollment\Commands\Update\" />
+      <Folder Include="Features\PersonalData\Commands\Delete\" />
+      <Folder Include="Features\PersonalData\Commands\Update\" />
       <Folder Include="Features\Schedule\Commands\Delete\" />
       <Folder Include="Features\Schedule\Commands\Update\" />
-      <Folder Include="Features\Schedule\Queries\" />
       <Folder Include="Features\SchoolYear\Commands\Delete\" />
       <Folder Include="Features\SchoolYear\Commands\Update\" />
-      <Folder Include="Features\SchoolYear\Queries\" />
       <Folder Include="Features\User\Commands\Delete\" />
       <Folder Include="Features\User\Commands\Update\" />
-      <Folder Include="Features\User\Queries\" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="MediatR" Version="12.2.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>

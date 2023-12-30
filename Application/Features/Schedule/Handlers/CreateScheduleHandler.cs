@@ -29,7 +29,7 @@ public class CreateScheduleHandler : HandlerBase, IRequestHandler<CreateSchedule
             request.ExitDate, request.SchoolYearId);
         
         await _scheduleRepository.InsertAsync(schedule);
-
+        await UnitOfWork.SaveChangeAsync(cancellationToken);
         return schedule.Id!;
     }
 }
