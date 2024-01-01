@@ -47,6 +47,20 @@ public class CourseAggregate
     /// 
     /// </summary>
     /// <param name="courseId"></param>
+    /// <param name="totalVacancy"></param>
+    /// <param name="enrollmentParameterId"></param>
+    /// <returns></returns>
+    public VacancyCourse AddVacancyCourse(string? courseId, int totalVacancy, string enrollmentParameterId)
+        => new VacancyCourse
+        {
+           CourseId = courseId,
+           TotalVacancy = totalVacancy,
+           EnrollmentParameterId = enrollmentParameterId
+        };
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="courseId"></param>
     /// <param name="disciplines"></param>
     /// <returns></returns>
     public List<DisciplineCourse> AddCourseDiscipline(string? courseId, Dictionary<string, bool> disciplines)

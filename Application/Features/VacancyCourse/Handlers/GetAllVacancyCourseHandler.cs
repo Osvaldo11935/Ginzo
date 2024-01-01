@@ -1,42 +1,38 @@
 using Application.Common.Interfaces.IRepositories;
 using Application.Common.Interfaces.IUnitOfWorks;
 using Application.Features.Common;
-using Application.Features.User.Queries;
+using Application.Features.VacancyCourse.Queries;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.User.Handlers;
+namespace Application.Features.VacancyCourse.Handlers;
 
-public class GetAllStudentHandler : HandlerBase,
-    IRequestHandler<GetAllStudentQuery, List<Domain.Entities.Student>>
+public class GetAllVacancyCourseHandler : HandlerBase,
+    IRequestHandler<GetAllVacancyCourseQuery, List<Domain.Entities.VacancyCourse>>
 {
     #region Properties and builders
 
-    private readonly IGenericRepository<Domain.Entities.Student> _studentRepository;
+    private readonly IGenericRepository<Domain.Entities.VacancyCourse> _vacancyCourseRepository;
 
-    public GetAllStudentHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+    public GetAllVacancyCourseHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        _studentRepository = unitOfWork.AsyncRepository<Domain.Entities.Student>();
+        _vacancyCourseRepository = unitOfWork.AsyncRepository<Domain.Entities.VacancyCourse>();
     }
 
     #endregion
 
 
-    public async Task<List<Domain.Entities.Student>> Handle(GetAllStudentQuery request,
+    public async Task<List<Domain.Entities.VacancyCourse>> Handle(GetAllVacancyCourseQuery request,
         CancellationToken cancellationToken)
     {
-        IQueryable<Domain.Entities.Student> queryable =
-            _studentRepository.SelectAllAsync(request.PageNumber, request.PageSize)
-                .Include(e => e.Class)
-                .ThenInclude(e => e!.Course)
-                .Include(e => e.User);
+        IQueryable<Domain.Entities.VacancyCourse> queryable =
+            _vacancyCourseRepository.SelectAllAsync(request.PageNumber, request.PageSize)
+                .Include(e => e.Course);
 
         if (!string.IsNullOrEmpty(request.Search))
         {
             queryable = queryable.Where(e =>
-                e.User!.Name!.ToLower() == request.Search || e.User.Email!.ToLower() == request.Search ||
-                e.User.DocumentNumber!.ToLower() == request.Search || e.Class!.Name!.ToLower() == request.Search ||
-                e.Class.Course!.Name!.ToLower() == request.Search);
+                e.Course!.Name!.ToLower() == request.Search);
         }
 
         return await queryable.ToListAsync(cancellationToken);

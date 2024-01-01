@@ -1,6 +1,8 @@
+using MediatR;
+
 namespace Application.Features.Discipline.Queries;
 
-public class GetAllDisciplineQuery
+public class GetAllDisciplineQuery: IRequest<List<Domain.Entities.Discipline>>
 {
     public int PageSize { get; set; }
     public int PageNumber { get; set; }
@@ -14,5 +16,5 @@ public class GetAllDisciplineQuery
     }
 
     public static implicit operator GetAllDisciplineQuery((int pageSize, int pageNumber, string? search) value)
-        => new(value.pageNumber, value.pageSize, value.search);
+        => new( value.pageSize, value.pageNumber, value.search);
 }

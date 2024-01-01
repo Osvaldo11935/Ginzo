@@ -125,6 +125,14 @@ public class UserAggregate
     
     #endregion
 
+    #region Other method
+
+    public static int CalculateUserAge(DateTime birthDate)
+        => DateTime.Now.Year - birthDate.Date.Year;
+    
+
+    #endregion
+
     #region Aux
 
     private List<EnrollmentCourse> SetCoursesEnrolled(Dictionary<string, Dictionary<string, double>> coursesEnrolled)

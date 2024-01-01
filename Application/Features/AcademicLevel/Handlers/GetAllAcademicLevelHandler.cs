@@ -28,7 +28,7 @@ public class GetAllAcademicLevelHandler : HandlerBase,
         IQueryable<Domain.Entities.AcademicLevel> queryable =
             _academicLevelRepository.SelectAllAsync(request.PageNumber, request.PageSize);
 
-        if (string.IsNullOrEmpty(request.Search)) {
+        if (!string.IsNullOrEmpty(request.Search)) {
             queryable = queryable.Where(e => e.Level.ToString() == request.Search);
         }
 

@@ -2,36 +2,37 @@ using Application.Common.Exceptions;
 using Application.Common.Interfaces.IRepositories;
 using Application.Common.Interfaces.IUnitOfWorks;
 using Application.Features.Common;
-using Application.Features.User.Commands.Create;
+using Application.Features.Common.Commands;
+using Application.Features.VacancyCourse.Commands.Create;
 using Domain.Common.Aggregates;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
+
 
 namespace Application.Features.VacancyCourse.Handlers;
 
-public class CreateUserHandler : HandlerBase, 
-    IRequestHandler<BaseCommand<List<CreateSchoolYearCommand>, bool>, bool>
+public class CreateVacancyCourseHandler : HandlerBase, 
+    IRequestHandler<BaseCommand<List<CreateVacancyCourseCommand>, bool>, bool>
 {
     #region Properties and builders
-    private readonly IGenericRepository<Domain.Entities.SchoolYear> _schoolRepository;
+    private readonly IGenericRepository<Domain.Entities.VacancyCourse> _vacancyCourseRepository;
     
-    public CreateSchoolYearHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+    public CreateVacancyCourseHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        _schoolRepository = unitOfWork.AsyncRepository<Domain.Entities.SchoolYear>();
+        _vacancyCourseRepository = unitOfWork.AsyncRepository<Domain.Entities.VacancyCourse>();
     }
     
     #endregion
    
 
-    public async Task<bool> Handle(BaseCommand<List<CreateSchoolYearCommand>, bool> requests, CancellationToken cancellationToken)
+    public async Task<bool> Handle(BaseCommand<List<CreateVacancyCourseCommand>, bool> requests, CancellationToken cancellationToken)
     {
-        SchoolYearAggregate schoolYearAggregate = new SchoolYearAggregate();
+        CourseAggregate courseAggregate = new CourseAggregate();
         
-        List<Domain.Entities.SchoolYear> schoolYears =
+        List<Domain.Entities.VacancyCourse> vacancyCourses =
             requests.Request!.Select(request =>
-                schoolYearAggregate.AddSchoolYear(request.StartYear, request.EndYear)).ToList();
+                courseAggregate.AddVacancyCourse(request.CourseId, request.TotalVacancy, request.EnrollmentParameterId)).ToList();
         
-        await _schoolRepository.InsertAsync(schoolYears);
+        await _vacancyCourseRepository.InsertAsync(vacancyCourses);
         await UnitOfWork.SaveChangeAsync(cancellationToken);
         
         return true;

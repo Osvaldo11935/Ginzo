@@ -4,6 +4,7 @@ namespace Domain.Entities;
 
 public class EnrollmentCourse: EntityBase
 {
+    public bool IsFirstOption { get; set; }
     public string? CourseId { get; set; }
     public string? EnrollmentId { get; set; }
     public virtual Course? Course { get; set; }

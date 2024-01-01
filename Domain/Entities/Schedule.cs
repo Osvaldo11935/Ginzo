@@ -9,5 +9,5 @@ public class Schedule: EntityBase
     public DateTime? EntryDate { get; set; }
     public string? SchoolYearId { get; set; }
     public virtual SchoolYear? SchoolYear { get; set; }
-    public virtual IList<ScheduleClass>? ScheduleClasses { get; set; }
+    public virtual IList<Class>? Classes { get; set; }
 }

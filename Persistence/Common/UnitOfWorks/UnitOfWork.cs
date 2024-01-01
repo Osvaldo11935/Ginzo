@@ -1,6 +1,7 @@
 using Application.Common.Interfaces.IRepositories;
 using Application.Common.Interfaces.IUnitOfWorks;
 using Domain.Entities;
+using Domain.Entities.Common;
 using Microsoft.AspNetCore.Identity;
 using Persistence.Context;
 using Persistence.Repositories;
@@ -31,14 +32,14 @@ public class UnitOfWork: IUnitOfWork
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     public IGenericRepository<T> AsyncRepository<T>() 
-        where T : class => new GenericRepository<T>(Context);
+        where T : EntityBase => new GenericRepository<T>(Context);
     
     /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>
     public IUserRepository UserRepository() 
-         => new UserRepository(Context, UserManager, RoleManager);
+         => new UserRepository(UserManager, RoleManager);
 
     #endregion
     

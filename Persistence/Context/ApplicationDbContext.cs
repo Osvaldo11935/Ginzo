@@ -36,7 +36,6 @@ public class ApplicationDbContext: IdentityDbContext<User, Role, string,
         builder.ApplyConfiguration(new EnrollmentCourseDisciplineConfiguration());
         builder.ApplyConfiguration(new PersonalDataConfiguration());
         builder.ApplyConfiguration(new RoleConfiguration());
-        builder.ApplyConfiguration(new ScheduleClassConfiguration());
         builder.ApplyConfiguration(new ScheduleConfiguration());
         builder.ApplyConfiguration(new SchoolYearConfiguration());
         builder.ApplyConfiguration(new StudentConfiguration());
@@ -44,5 +43,6 @@ public class ApplicationDbContext: IdentityDbContext<User, Role, string,
         builder.ApplyConfiguration(new EnrollmentParameterConfiguration());
         builder.ApplyConfiguration(new EnrollmentStatusConfiguration());
         builder.ApplyConfiguration(new UserRoleConfiguration());
+        builder.ApplyConfiguration(new VacancyCourseConfiguration());
     }
 }

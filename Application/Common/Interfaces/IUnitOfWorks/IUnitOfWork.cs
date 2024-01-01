@@ -1,4 +1,5 @@
 using Application.Common.Interfaces.IRepositories;
+using Domain.Entities.Common;
 
 namespace Application.Common.Interfaces.IUnitOfWorks;
 
@@ -12,7 +13,7 @@ public interface IUnitOfWork
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     public IGenericRepository<T> AsyncRepository<T>()
-        where T : class;
+        where T : EntityBase;
 
     /// <summary>
     /// 

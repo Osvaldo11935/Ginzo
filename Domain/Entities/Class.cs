@@ -12,5 +12,5 @@ public class Class: EntityBase
     public virtual SchoolYear? SchoolYear { get; set; }
     public virtual AcademicLevel? AcademicLevel { get; set; }
     public virtual IList<Student>? Students { get; set; }
-    public virtual IList<ScheduleClass>? ScheduleClasses { get; set; }
+    public virtual IList<Schedule>? Schedules { get; set; }
 }

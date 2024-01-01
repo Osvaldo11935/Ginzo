@@ -2,12 +2,10 @@ using System.Security.Claims;
 using Application.Common.Interfaces.IRepositories;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using Persistence.Context;
-using Persistence.Repositories.Common;
 
 namespace Persistence.Repositories;
 
-public class UserRepository : GenericRepository<User>, IUserRepository
+public class UserRepository : IUserRepository
 {
     #region Properties and builders
 
@@ -15,8 +13,7 @@ public class UserRepository : GenericRepository<User>, IUserRepository
     private readonly UserManager<User> _userManager;
 
 
-    public UserRepository(ApplicationDbContext context, UserManager<User> userManager, RoleManager<Role> roleManager) :
-        base(context)
+    public UserRepository(UserManager<User> userManager, RoleManager<Role> roleManager)
     {
         _userManager = userManager;
         _roleManager = roleManager;

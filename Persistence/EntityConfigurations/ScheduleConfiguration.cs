@@ -13,6 +13,6 @@ public class ScheduleConfiguration: IEntityTypeConfiguration<Schedule>
         builder.HasOne(e => e.SchoolYear)
             .WithMany(e => e.Schedules)
             .HasForeignKey(e => e.SchoolYearId);
-        
+        builder.HasMany<Class>();
     }
 }

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.Features.AcademicLevel.Commands.Create;
 
-public class CreateAcademicLevelCommand: IRequest<string>
+public class CreateAcademicLevelCommand
 {
     public int Level { get; set; }
 

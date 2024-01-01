@@ -1,8 +1,9 @@
+using Application.Features.User.Queries;
 using MediatR;
 
-namespace Application.Features.User.Queries;
+namespace Application.Features.VacancyCourse.Queries;
 
-public class GetAllVacancyCourseQuery : IRequest<List<Domain.Entities.Student>>
+public class GetAllVacancyCourseQuery : IRequest<List<Domain.Entities.VacancyCourse>>
 {
     public int PageSize { get; set; }
     public int PageNumber { get; set; }
@@ -15,6 +16,6 @@ public class GetAllVacancyCourseQuery : IRequest<List<Domain.Entities.Student>>
         Search = string.IsNullOrEmpty(search) ? search : search!.ToLower();
     }
 
-    public static implicit operator GetAllStudentQuery((int pageSize, int pageNumber, string? search) value)
+    public static implicit operator GetAllVacancyCourseQuery((int pageSize, int pageNumber, string? search) value)
         => new(value.pageNumber, value.pageSize, value.search);
 }

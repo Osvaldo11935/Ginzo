@@ -1,12 +1,13 @@
 using System.Linq.Expressions;
 using Application.Common.Interfaces.IRepositories;
+using Domain.Entities.Common;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
 
 namespace Persistence.Repositories.Common;
 
 public class GenericRepository<T>: IGenericRepository<T>
-  where T : class
+  where T : EntityBase
 {
     #region Properties and builders
 
@@ -70,10 +71,12 @@ public class GenericRepository<T>: IGenericRepository<T>
         if (expression != null)
         {
             return _dbSet.Where(expression)
+                .OrderBy(e => e.CreatedAt)
                 .Skip((pageNumber - 1) * pageSize).Take(pageSize)
                 .AsNoTracking();
         }
         return _dbSet
+            .OrderBy(e => e.CreatedAt)
             .Skip((pageNumber - 1) * pageSize).Take(pageSize)
             .AsNoTracking();
     }
@@ -87,9 +90,11 @@ public class GenericRepository<T>: IGenericRepository<T>
         if (expression != null)
         {
             return _dbSet.Where(expression)
+                .OrderBy(e => e.CreatedAt)
                 .AsNoTracking();
         }
         return _dbSet
+            .OrderBy(e => e.CreatedAt)
             .AsNoTracking();
     }
     

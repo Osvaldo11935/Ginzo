@@ -1,13 +1,15 @@
 using Application.Common.Interfaces.IRepositories;
 using Application.Common.Interfaces.IUnitOfWorks;
 using Application.Features.Common;
+using Application.Features.Common.Commands;
 using Application.Features.Course.Commands.Create;
 using Domain.Common.Aggregates;
 using MediatR;
 
 namespace Application.Features.Course.Handlers;
 
-public class CreateCourseHandler : HandlerBase, IRequestHandler<CreateCourseCommand, string>
+public class CreateCourseHandler : HandlerBase,
+    IRequestHandler<BaseCommand<List<CreateCourseCommand>, bool>, bool>
 {
     #region Properties and builders
 
@@ -21,14 +23,16 @@ public class CreateCourseHandler : HandlerBase, IRequestHandler<CreateCourseComm
     #endregion
 
 
-    public async Task<string> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(BaseCommand<List<CreateCourseCommand>, bool> requests, CancellationToken cancellationToken)
     {
         CourseAggregate courseAggregate = new CourseAggregate();
-
-        Domain.Entities.Course course = courseAggregate.AddCourse(request.Name!);
-
-        await _courseRepository.InsertAsync(course);
+        
+        List<Domain.Entities.Course> courses =
+            requests.Request!.Select(request => courseAggregate.AddCourse(request.Name!)).ToList();
+        
+        await _courseRepository.InsertAsync(courses);
         await UnitOfWork.SaveChangeAsync(cancellationToken);
-        return course.Id!;
+        
+        return true;
     }
 }

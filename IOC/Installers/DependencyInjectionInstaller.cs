@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Common.UnitOfWorks;
 using Persistence.Repositories;
+using Shared.Services.BackGround;
 
 namespace IOC.Installers;
 
@@ -14,5 +15,6 @@ public class DependencyInjectionInstaller: IInstaller
     {
         serviceCollection.AddTransient<IUnitOfWork, UnitOfWork>();
         serviceCollection.AddTransient<IUserRepository, UserRepository>();
+        serviceCollection.AddHostedService<ApplicationEvaluationProcessBackGroundService>();
     }
 }

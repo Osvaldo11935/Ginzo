@@ -16,5 +16,5 @@ public class GetAllAcademicLevelQuery: IRequest<List<Domain.Entities.AcademicLev
     }
 
     public static implicit operator GetAllAcademicLevelQuery((int pageSize, int pageNumber, string? search) value)
-        => new(value.pageNumber, value.pageSize, value.search);
+        => new( value.pageSize, value.pageNumber, value.search);
 }

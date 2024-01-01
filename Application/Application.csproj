@@ -27,6 +27,8 @@
       <Folder Include="Features\SchoolYear\Commands\Update\" />
       <Folder Include="Features\User\Commands\Delete\" />
       <Folder Include="Features\User\Commands\Update\" />
+      <Folder Include="Features\VacancyCourse\Commands\Delete\" />
+      <Folder Include="Features\VacancyCourse\Commands\Update\" />
     </ItemGroup>
 
     <ItemGroup>

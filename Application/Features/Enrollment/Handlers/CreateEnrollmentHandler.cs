@@ -26,10 +26,12 @@ public class CreateEnrollmentHandler : HandlerBase, IRequestHandler<CreateEnroll
 
     public async Task<string> Handle(CreateEnrollmentCommand request, CancellationToken cancellationToken)
     {
-        UserAggregate userAggregate = new UserAggregate();
+        DateTime currentDate = DateTime.Now;
         
+        UserAggregate userAggregate = new UserAggregate();
+       
         Domain.Entities.EnrollmentParameter enrollmentParameter = await _enrollmentSettingRepository.SelectAsync(e =>
-            e.IsActive);
+          e.StartDate!.Value.Date <= currentDate.Date && e.EndDate!.Value.Date >= currentDate.Date &&   e.IsActive);
         
         if (enrollmentParameter == null) throw new ApiException("Período das inscrições já terminou, tenta novamente quando reabrir");
 

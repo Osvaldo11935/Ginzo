@@ -2,8 +2,8 @@ using Application.Common.Interfaces.IRepositories;
 using Application.Common.Interfaces.IUnitOfWorks;
 using Application.Features.Class.Commands.Create;
 using Application.Features.Common;
-using Domain.Common.Aggregates;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Class.Handlers;
 
@@ -11,11 +11,12 @@ public class CreateClassScheduleScheduleHandler : HandlerBase, IRequestHandler<C
 {
     #region Properties and builders
 
-    private readonly IGenericRepository<Domain.Entities.ScheduleClass> _classScheduleRepository;
-
+    private readonly IGenericRepository<Domain.Entities.Class> _classRepository;
+    private readonly IGenericRepository<Domain.Entities.Schedule> _scheduleRepository;
     public CreateClassScheduleScheduleHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        _classScheduleRepository = unitOfWork.AsyncRepository<Domain.Entities.ScheduleClass>();
+        _classRepository = unitOfWork.AsyncRepository<Domain.Entities.Class>();
+        _scheduleRepository = unitOfWork.AsyncRepository<Domain.Entities.Schedule>();
     }
 
     #endregion
@@ -23,12 +24,16 @@ public class CreateClassScheduleScheduleHandler : HandlerBase, IRequestHandler<C
 
     public async Task<bool> Handle(CreateClassScheduleCommand request, CancellationToken cancellationToken)
     {
-        SchoolYearAggregate schoolYearAggregate = new SchoolYearAggregate();
 
-        List<Domain.Entities.ScheduleClass> classSchedule =
-            schoolYearAggregate.AddClassSchedule(request.ClassId!, request.ScheduleIds!);
-
-        await _classScheduleRepository.InsertAsync(classSchedule);
+        Domain.Entities.Class @class = await _classRepository.SelectAsync(e => e.Id == request.ClassId);
+        
+        List<Domain.Entities.Schedule> schedules = await _scheduleRepository
+            .SelectAllAsync(e => request.ScheduleIds!.Contains(e.Id!))
+            .ToListAsync(cancellationToken);
+        
+        schedules.ForEach(e => @class.Schedules?.Add(e));
+        
+        await _classRepository.InsertAsync(@class);
         await UnitOfWork.SaveChangeAsync(cancellationToken);
         return true;
     }
