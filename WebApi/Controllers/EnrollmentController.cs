@@ -38,7 +38,8 @@ public class EnrollmentController : BaseController
         [FromBody] CreateEnrollmentParameterRequest request)
     {
         string response =
-            await Mediator.Send((CreateEnrollmentParameterCommand)(request.EndDate, request.StartDate, schoolYearId));
+            await Mediator.Send((CreateEnrollmentParameterCommand)(request.EndDate, request.StartDate, schoolYearId,
+                request.MinPriorityAge, request.MaxPriorityAge, request.FinalAverage));
 
         return Ok(new { EnrollmentParameterId = response });
     }
@@ -52,12 +53,40 @@ public class EnrollmentController : BaseController
     {
         List<Enrollment> enrollments =
             await Mediator.Send((GetAllEnrollmentQuery)(request.PageSize, request.PageNumber, request.Search));
-        
+
         List<EnrollmentResponse> enrollmentResponses =
             EnrollmentResponse.EnrollmentToEnrollmentResponse(enrollments);
-        
+
         return Ok((BasePaginationResponse<List<EnrollmentResponse>>)(enrollmentResponses, request.PageNumber,
             request.PageSize, enrollmentResponses.Count));
+    }
+
+    [HttpGet("enrollment/enrollment-status")]
+    public async Task<IActionResult> GetAllEnrollmentStatusAsync([FromQuery] QueryParameterRequest request)
+    {
+        List<EnrollmentStatus> enrollments =
+            await Mediator.Send((GetAllEnrollmentStatusQuery)(request.PageSize, request.PageNumber, request.Search));
+
+        List<EnrollmentStatusResponse> enrollmentStatusResponses =
+            EnrollmentStatusResponse.EnrollmentStatusToEnrollmentStatusResponse(enrollments);
+
+        return Ok((BasePaginationResponse<List<EnrollmentStatusResponse>>)(enrollmentStatusResponses,
+            request.PageNumber,
+            request.PageSize, enrollmentStatusResponses.Count));
+    }
+
+    [HttpGet("enrollment/enrollment-parameters")]
+    public async Task<IActionResult> GetAllEnrollmentParametersAsync([FromQuery] QueryParameterRequest request)
+    {
+        List<EnrollmentParameter> enrollments =
+            await Mediator.Send((GetAllEnrollmentParameterQuery)(request.PageSize, request.PageNumber, request.Search));
+
+        List<EnrollmentParameterResponse> enrollmentParameterResponses =
+            EnrollmentParameterResponse.EnrollmentParameterToEnrollmentParameterResponse(enrollments);
+
+        return Ok((BasePaginationResponse<List<EnrollmentParameterResponse>>)(enrollmentParameterResponses,
+            request.PageNumber,
+            request.PageSize, enrollmentParameterResponses.Count));
     }
 
     #endregion

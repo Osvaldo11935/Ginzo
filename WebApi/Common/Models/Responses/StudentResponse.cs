@@ -2,13 +2,12 @@ using Domain.Entities;
 
 namespace WebApi.Common.Models.Responses;
 
-public class StudentResponse: UserResponse
+public class StudentResponse : UserResponse
 {
-    public ClassResponse?  Class { get; set; }
+    public ClassResponse? Class { get; set; }
 
     public static List<StudentResponse> StudentToStudentResponse(List<Student> students)
-    {
-       return students.Select(e => new StudentResponse()
+        => students.Select(e => new StudentResponse()
         {
             Name = e.User!.Name,
             Email = e.User.Email,
@@ -24,5 +23,4 @@ public class StudentResponse: UserResponse
                 }
             }
         }).ToList();
-    }
 }

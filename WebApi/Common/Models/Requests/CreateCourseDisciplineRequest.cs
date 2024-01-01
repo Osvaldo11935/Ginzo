@@ -1,3 +1,5 @@
+using Application.Features.Course.Commands.Create;
+
 namespace WebApi.Common.Models.Requests;
 
 public class CreateCourseDisciplineRequest
@@ -16,6 +18,9 @@ public class CreateCourseDisciplineRequest
 
         return dic;
     }
+    
+    public static List<CreateCourseDisciplineCommand> Parsing(List<CreateCourseDisciplineRequest> requests)
+        => requests.Select(request => (CreateCourseDisciplineCommand)(request.CourseId, request.SetDiscipline(request.Disciplines)) ).ToList();
 }
 
 public class DisciplineRequest

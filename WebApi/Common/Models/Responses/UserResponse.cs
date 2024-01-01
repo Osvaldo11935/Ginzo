@@ -4,6 +4,7 @@ namespace WebApi.Common.Models.Responses;
 
 public class UserResponse
 {
+    public string? Id { get; set; }
     public string? Name { get; set; }
     public string? Email { get; set; }
     public string? PhoneNumber { get; set; }
@@ -12,6 +13,7 @@ public class UserResponse
     
     public static List<UserResponse> UserToUserResponse(List<User> users)
         => users.Select(e => new UserResponse() {
+            Id = e.Id,
             Name = e.Name,
             Email = e.Email,
             BirthDate = e.BirthDate,
@@ -21,6 +23,7 @@ public class UserResponse
     
     public static UserResponse UserToUserResponse(User user)
         => new UserResponse() {
+            Id = user.Id,
             Name = user.Name,
             Email = user.Email,
             BirthDate = user.BirthDate,

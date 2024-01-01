@@ -4,6 +4,7 @@ namespace WebApi.Common.Models.Responses;
 
 public class AddressResponse
 {
+    public string? Id { get; set; }
     public string? Country { get; set; }
     public string? County { get; set; }
     public string? Province { get; set; }
@@ -15,6 +16,7 @@ public class AddressResponse
     
     public static AddressResponse AddressToAddressResponse(Address address)
         =>  new AddressResponse() {
+            Id = address.Id,
             Country = address.Country,
             Province = address.Province,
             County = address.County,
