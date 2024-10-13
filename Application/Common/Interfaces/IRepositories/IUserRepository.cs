@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Application.Common.Interfaces.IRepositories;
 
-public interface IUserRepository: IGenericRepository<User>
+public interface IUserRepository
 {
      #region SignIn
 
